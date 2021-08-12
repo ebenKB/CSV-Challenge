@@ -1,3 +1,8 @@
+/**
+ * @param {*} file The file to read. Expects a BLOB from html input
+ * @param {*} callback A function to run when the file is done reading.
+ * The results of the file reader is passed to this function.
+ */
 export const readCSVFile = (file, callback) => {
   let fileReader = new FileReader()
 
@@ -8,6 +13,11 @@ export const readCSVFile = (file, callback) => {
   fileReader.readAsText(file);
 }
 
+/**
+ * @param {*} rawData The data to process. Expects data in raw text
+ * @param {*} delimeter The character separating the records. (e.g. "," or "")
+ * @returns Returns an object containing the processed data and meta data
+ */
 export const processFile = (rawData, delimeter) => {
   const data = rawData.split("\n");
   const [heading, ...rows] = data
@@ -30,12 +40,22 @@ export const processFile = (rawData, delimeter) => {
   };
 }
 
+/**
+ * @param {*} data The data to split
+ * @param {*} delimeter The character separating the data
+ * @returns Returns the splitted data in an array
+ */
 const splitWithDelimeter = (data, delimeter) => {
   if (delimeter === ",") {
     return data.split(",")
   } else return data.split(" ")
 }
 
+/**
+ * 
+ * @param {*} rawData The data containing the bad values to replace
+ * @returns Returns an object containing the good data and meta data
+ */
 const replaceBadValues = (rawData) => {
   let transformedData = [];
   let counter = 0;
@@ -60,6 +80,15 @@ const replaceBadValues = (rawData) => {
   };
 }
 
+/**
+ * This function searches the north, south, west and east of
+ * the current matrix[row][col] to find a good neighbour.
+ * Good neighbours are those whose values are not 0.
+ * @param {*} row The current row
+ * @param {*} col The current col
+ * @param {*} rawData The data being processed
+ * @returns Returns a good neighbour if found
+ */
 const getNearestNeighbour = (row, col, rawData) => {
   let good = 0;
   let done = false;
