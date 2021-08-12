@@ -26,12 +26,12 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" data-testid="wrapper">
       <header className="App-header">
         Judy Native CSV Parser
       </header>
       <div style={{marginTop: "40px"}}>
-        <form >
+        <form data-testid="form">
           <div>
             <input type="file" accept=".csv" onChange={handleReadFile} style={{fontSize: "18px"}} />
           </div>
